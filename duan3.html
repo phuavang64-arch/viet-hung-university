@@ -1,0 +1,1728 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Đại học Công nghiệp Việt-Hung</title>
+    <link rel="stylesheet" href="duan3.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- ===== LOADING SCREEN ===== -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-inner">
+        <div class="loading-logo">VH</div>
+        <div class="loading-bar">
+          <div class="loading-fill" id="loadingFill"></div>
+        </div>
+        <p class="loading-text">Đang tải hệ thống...</p>
+      </div>
+    </div>
+
+    <!-- ===== SCROLL TO TOP ===== -->
+    <button
+      class="scroll-top"
+      id="scrollTop"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+      <div class="header-top">
+        <div class="container">
+          <div class="header-top-left">
+            <span><i class="fas fa-phone-alt"></i> (024) 3836 8821</span>
+            <span><i class="fas fa-envelope"></i> info@viethung.edu.vn</span>
+            <span class="hide-sm"
+              ><i class="fas fa-clock"></i> T2 – T6: 7:30 – 17:00</span
+            >
+          </div>
+          <div class="header-top-right">
+            <span class="hide-sm"
+              ><i class="fas fa-map-marker-alt"></i> Tùng Thiện, Hà Nội</span
+            >
+            <button class="btn-dark-mode" id="btnDarkMode" title="Chế độ tối">
+              <i class="fas fa-moon"></i>
+            </button>
+            <button class="btn-login" id="btnLogin">
+              <i class="fas fa-user"></i> Đăng nhập
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-main">
+        <div class="container header-main-inner">
+          <div class="logo">
+            <div class="logo-icon">VH</div>
+            <div class="logo-text">
+              <span class="logo-name">ĐẠI HỌC CÔNG NGHIỆP</span>
+              <span class="logo-sub">VIỆT - HUNG</span>
+              <span class="logo-en"
+                >Vietnam – Hungaria Industrial University</span
+              >
+            </div>
+          </div>
+
+          <nav class="nav" id="nav">
+            <a class="nav-link active" data-page="trang-chu" href="#"
+              ><i class="fas fa-home"></i> Trang chủ</a
+            >
+            <a class="nav-link" data-page="dashboard" href="#"
+              ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+            >
+            <a class="nav-link" data-page="thoi-khoa-bieu" href="#"
+              ><i class="fas fa-calendar-alt"></i> TKB</a
+            >
+            <a class="nav-link" data-page="diem-so" href="#"
+              ><i class="fas fa-chart-bar"></i> Điểm số</a
+            >
+            <a class="nav-link" data-page="sinh-vien" href="#"
+              ><i class="fas fa-user-graduate"></i> Sinh viên</a
+            >
+            <a class="nav-link" data-page="giang-vien" href="#"
+              ><i class="fas fa-chalkboard-teacher"></i> Giảng viên</a
+            >
+            <a class="nav-link" data-page="hoc-phi" href="#"
+              ><i class="fas fa-wallet"></i> Học phí</a
+            >
+            <a class="nav-link" data-page="thu-vien" href="#"
+              ><i class="fas fa-book"></i> Thư viện</a
+            >
+            <a class="nav-link" data-page="thong-bao" href="#"
+              ><i class="fas fa-bell"></i> Thông báo<span
+                class="badge"
+                id="badgeTB"
+                >3</span
+              ></a
+            >
+            <a class="nav-link" data-page="tuyen-sinh" href="#"
+              ><i class="fas fa-edit"></i> Tuyển sinh</a
+            >
+          </nav>
+
+          <div class="header-actions">
+            <div class="search-global-wrap">
+              <div class="search-global">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="globalSearch"
+                  placeholder="Tìm kiếm..."
+                  oninput="globalSearchFn(event)"
+                />
+              </div>
+              <div class="search-dropdown" id="searchDropdown"></div>
+            </div>
+            <button class="hamburger" id="hamburger">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== MODAL ĐĂNG NHẬP ===== -->
+    <div class="modal-overlay" id="modalLogin">
+      <div class="modal">
+        <button class="modal-close" id="modalClose">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-logo">VH</div>
+        <h2 class="modal-title">Đăng nhập hệ thống</h2>
+        <p class="modal-subtitle">Trường Đại học Công nghiệp Việt-Hung</p>
+        <div class="login-tabs">
+          <button
+            class="login-tab active"
+            onclick="setLoginTab(this, 'Sinh viên')"
+          >
+            Sinh viên
+          </button>
+          <button class="login-tab" onclick="setLoginTab(this, 'Giảng viên')">
+            Giảng viên
+          </button>
+          <button class="login-tab" onclick="setLoginTab(this, 'Quản trị')">
+            Quản trị
+          </button>
+        </div>
+        <div class="form-group">
+          <label
+            ><i class="fas fa-id-card"></i> Mã sinh viên / Giảng viên</label
+          >
+          <input
+            type="text"
+            class="form-input"
+            placeholder="VD: VH2021001"
+            id="inputUser"
+          />
+        </div>
+        <div class="form-group pass-group">
+          <label><i class="fas fa-lock"></i> Mật khẩu</label>
+          <input
+            type="password"
+            class="form-input"
+            placeholder="Nhập mật khẩu..."
+            id="inputPass"
+          />
+          <button class="toggle-pass" type="button" onclick="togglePassword()">
+            <i class="fas fa-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+        <div class="form-row">
+          <label class="checkbox-label"
+            ><input type="checkbox" /> Ghi nhớ đăng nhập</label
+          >
+          <a href="#" class="link-forgot">Quên mật khẩu?</a>
+        </div>
+        <button class="btn-primary full" id="btnSubmitLogin">
+          <i class="fas fa-sign-in-alt"></i> Đăng nhập
+        </button>
+        <div class="login-divider"><span>hoặc</span></div>
+        <button class="btn-sso" onclick="showToast('Đang kết nối SSO...', '')">
+          <i class="fas fa-university"></i> Đăng nhập qua SSO Trường
+        </button>
+        <p class="modal-note">
+          <i class="fas fa-info-circle"></i> Demo: nhập bất kỳ thông tin rồi bấm
+          đăng nhập
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== MAIN ===== -->
+    <main class="main">
+      <!-- ============ TRANG CHỦ ============ -->
+      <section class="page active" id="page-trang-chu">
+        <!-- Hero -->
+        <div class="hero">
+          <div class="hero-bg-shapes">
+            <div class="shape s1"></div>
+            <div class="shape s2"></div>
+            <div class="shape s3"></div>
+          </div>
+          <div class="container hero-inner">
+            <div class="hero-content">
+              <div class="hero-badge">
+                <i class="fas fa-award"></i> Kiểm định chất lượng AUN-QA 2024
+              </div>
+              <h1 class="hero-title">
+                Đại học Công nghiệp<br /><span class="hero-hl"
+                  >Việt - Hung</span
+                >
+              </h1>
+              <p class="hero-desc">
+                Trung tâm đào tạo kỹ thuật – công nghệ hàng đầu phía Bắc. Nơi
+                hội tụ tri thức, sáng tạo và phát triển bền vững vì tương lai
+                Việt Nam.
+              </p>
+              <div class="hero-btns">
+                <button
+                  class="btn-primary hero-btn"
+                  onclick="showPage('tuyen-sinh')"
+                >
+                  <i class="fas fa-edit"></i> Đăng ký tuyển sinh 2025
+                </button>
+                <button class="btn-glass" onclick="showPage('dashboard')">
+                  <i class="fas fa-tachometer-alt"></i> Xem Dashboard
+                </button>
+              </div>
+              <div class="hero-checks">
+                <span><i class="fas fa-check-circle"></i> Chuẩn quốc tế</span>
+                <span><i class="fas fa-check-circle"></i> Thực hành 70%</span>
+                <span><i class="fas fa-check-circle"></i> Việc làm 95%</span>
+              </div>
+            </div>
+            <div class="hero-stats-grid">
+              <div class="hero-stat">
+                <i class="fas fa-calendar-check"></i>
+                <div>
+                  <span class="count-num" data-target="25">0</span
+                  ><span class="hero-stat-plus">+</span>
+                </div>
+                <span>Năm thành lập</span>
+              </div>
+              <div class="hero-stat">
+                <i class="fas fa-user-graduate"></i>
+                <div>
+                  <span class="count-num" data-target="15000">0</span
+                  ><span class="hero-stat-plus">+</span>
+                </div>
+                <span>Sinh viên</span>
+              </div>
+              <div class="hero-stat">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <div>
+                  <span class="count-num" data-target="500">0</span
+                  ><span class="hero-stat-plus">+</span>
+                </div>
+                <span>Giảng viên</span>
+              </div>
+              <div class="hero-stat">
+                <i class="fas fa-briefcase"></i>
+                <div>
+                  <span class="count-num" data-target="95">0</span
+                  ><span class="hero-stat-plus">%</span>
+                </div>
+                <span>Có việc làm</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-wave">
+            <svg
+              viewBox="0 0 1440 80"
+              preserveAspectRatio="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"
+                fill="#f0f6ff"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Marquee thông báo -->
+        <div class="marquee-bar">
+          <div class="container marquee-inner">
+            <span class="marquee-label"
+              ><i class="fas fa-bullhorn"></i> THÔNG BÁO</span
+            >
+            <div class="marquee-track-wrap">
+              <div class="marquee-track">
+                <span
+                  >📢 Lịch thi HK2 2024-2025 đã có – Kiểm tra ngay trên hệ
+                  thống!</span
+                >
+                <span
+                  >🎓 Lễ tốt nghiệp Khoá K21 diễn ra ngày 20/06/2025 tại Hội
+                  trường lớn</span
+                >
+                <span
+                  >📝 Mở đăng ký tuyển sinh đại học chính quy 2025 từ ngày 01/05
+                  đến 31/07/2025</span
+                >
+                <span
+                  >💡 Hackathon VH 2025 – Cuộc thi lập trình 24h – Giải thưởng
+                  50 triệu đồng</span
+                >
+                <span
+                  >🏆 Sinh viên Việt-Hung đoạt giải Nhất Olympic Toán toàn quốc
+                  2025</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tin tức -->
+        <div class="section">
+          <div class="container">
+            <div class="section-header">
+              <div>
+                <span class="section-tag">Mới nhất</span>
+                <h2 class="section-title">Tin tức & Sự kiện</h2>
+              </div>
+              <a href="#" class="link-more"
+                >Xem tất cả <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+            <div class="news-grid">
+              <div class="news-card featured">
+                <div
+                  class="news-img"
+                  style="background: linear-gradient(135deg, #0d47a1, #1565c0)"
+                >
+                  <span class="news-cat">Sự kiện nổi bật</span>
+                </div>
+                <div class="news-body">
+                  <span class="news-date"
+                    ><i class="fas fa-calendar"></i> 01/05/2025</span
+                  >
+                  <h3 class="news-title">
+                    Lễ khai giảng năm học 2025–2026 – Chào đón tân sinh viên
+                    Khoá K25
+                  </h3>
+                  <p class="news-desc">
+                    Trường Đại học Công nghiệp Việt-Hung long trọng tổ chức lễ
+                    khai giảng với sự tham dự của hơn 3.000 sinh viên và nhiều
+                    khách mời trong ngoài nước...
+                  </p>
+                  <a class="news-more" href="#"
+                    >Đọc tiếp <i class="fas fa-arrow-right"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="news-card">
+                <div
+                  class="news-img"
+                  style="background: linear-gradient(135deg, #01579b, #0288d1)"
+                >
+                  <span class="news-cat">Học thuật</span>
+                </div>
+                <div class="news-body">
+                  <span class="news-date"
+                    ><i class="fas fa-calendar"></i> 28/04/2025</span
+                  >
+                  <h3 class="news-title">
+                    Hội thảo quốc tế Công nghệ thông tin & Tự động hóa 2025
+                  </h3>
+                  <p class="news-desc">
+                    Khoa CNTT phối hợp tổ chức với sự tham gia của chuyên gia
+                    đến từ CH Séc và Việt Nam...
+                  </p>
+                  <a class="news-more" href="#"
+                    >Đọc tiếp <i class="fas fa-arrow-right"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="news-card">
+                <div
+                  class="news-img"
+                  style="background: linear-gradient(135deg, #006064, #00838f)"
+                >
+                  <span class="news-cat">Tuyển sinh</span>
+                </div>
+                <div class="news-body">
+                  <span class="news-date"
+                    ><i class="fas fa-calendar"></i> 20/04/2025</span
+                  >
+                  <h3 class="news-title">
+                    Thông báo tuyển sinh đại học chính quy năm 2025
+                  </h3>
+                  <p class="news-desc">
+                    Trường thông báo chỉ tiêu và các phương thức xét tuyển năm
+                    2025 với nhiều hình thức đa dạng...
+                  </p>
+                  <a class="news-more" href="#"
+                    >Đọc tiếp <i class="fas fa-arrow-right"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="news-card">
+                <div
+                  class="news-img"
+                  style="background: linear-gradient(135deg, #1a237e, #283593)"
+                >
+                  <span class="news-cat">Nghiên cứu</span>
+                </div>
+                <div class="news-body">
+                  <span class="news-date"
+                    ><i class="fas fa-calendar"></i> 15/04/2025</span
+                  >
+                  <h3 class="news-title">
+                    Nhóm nghiên cứu AI của trường được tài trợ 2 tỷ đồng từ Bộ
+                    KH&CN
+                  </h3>
+                  <p class="news-desc">
+                    Đề tài ứng dụng AI trong sản xuất công nghiệp được phê duyệt
+                    và tài trợ kinh phí lớn...
+                  </p>
+                  <a class="news-more" href="#"
+                    >Đọc tiếp <i class="fas fa-arrow-right"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Khoa ngành -->
+        <div class="section section-blue">
+          <div class="container">
+            <div class="section-header">
+              <div>
+                <span class="section-tag light">Đào tạo</span>
+                <h2 class="section-title light">Các khoa & Ngành đào tạo</h2>
+              </div>
+            </div>
+            <div class="faculty-grid">
+              <div class="faculty-card" onclick="showPage('tuyen-sinh')">
+                <div class="faculty-icon"><i class="fas fa-microchip"></i></div>
+                <h3>Công nghệ thông tin</h3>
+                <p>Lập trình, AI, An ninh mạng, Data Science</p>
+                <div class="faculty-sv">
+                  <i class="fas fa-users"></i> 1.200 sinh viên
+                </div>
+              </div>
+              <div class="faculty-card" onclick="showPage('tuyen-sinh')">
+                <div class="faculty-icon"><i class="fas fa-cogs"></i></div>
+                <h3>Kỹ thuật Cơ điện</h3>
+                <p>Tự động hóa, Robot công nghiệp, CNC, PLC</p>
+                <div class="faculty-sv">
+                  <i class="fas fa-users"></i> 850 sinh viên
+                </div>
+              </div>
+              <div class="faculty-card" onclick="showPage('tuyen-sinh')">
+                <div class="faculty-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Điện – Điện tử</h3>
+                <p>Hệ thống điện, Điện tử viễn thông, IoT</p>
+                <div class="faculty-sv">
+                  <i class="fas fa-users"></i> 900 sinh viên
+                </div>
+              </div>
+              <div class="faculty-card" onclick="showPage('tuyen-sinh')">
+                <div class="faculty-icon"><i class="fas fa-hard-hat"></i></div>
+                <h3>Xây dựng & Kiến trúc</h3>
+                <p>Kết cấu công trình, Thiết kế đô thị, BIM</p>
+                <div class="faculty-sv">
+                  <i class="fas fa-users"></i> 600 sinh viên
+                </div>
+              </div>
+              <div class="faculty-card" onclick="showPage('tuyen-sinh')">
+                <div class="faculty-icon"><i class="fas fa-flask"></i></div>
+                <h3>Hóa học & Môi trường</h3>
+                <p>Công nghệ hóa, Kỹ thuật môi trường</p>
+                <div class="faculty-sv">
+                  <i class="fas fa-users"></i> 400 sinh viên
+                </div>
+              </div>
+              <div class="faculty-card" onclick="showPage('tuyen-sinh')">
+                <div class="faculty-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Kinh tế & Quản trị</h3>
+                <p>Quản trị kinh doanh, Kế toán, Logistics</p>
+                <div class="faculty-sv">
+                  <i class="fas fa-users"></i> 1.100 sinh viên
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Đối tác -->
+        <div class="section">
+          <div class="container">
+            <div class="section-header" style="justify-content: center">
+              <div style="text-align: center">
+                <span class="section-tag">Hợp tác</span>
+                <h2 class="section-title">Đối tác doanh nghiệp</h2>
+              </div>
+            </div>
+            <div class="partner-grid">
+              <div class="partner-logo">
+                <i class="fas fa-building"></i>
+                <a href="https://www.sgsg.samsung.com/main/index.php"
+                  >Samsung</a
+                >
+              </div>
+              <div class="partner-logo">
+                <i class="fas fa-signal"></i>
+                <a href="https://viettel.com.vn/vi/">Viettel</a>
+              </div>
+              <div class="partner-logo">
+                <i class="fas fa-laptop-code"></i>
+                <a href="https://fptsoftware.com/">FPT Software</a>
+              </div>
+              <div class="partner-logo">
+                <i class="fas fa-car"></i>
+                <a href="https://vingroup.net/"> Vingroup </a>
+              </div>
+              <div class="partner-logo">
+                <i class="fas fa-network-wired"></i>
+                <a href="https://vnpt.com.vn/">VNPT</a>
+              </div>
+              <div class="partner-logo">
+                <i class="fas fa-industry"></i>
+                <a href="https://www.bosch.com.vn/">Bosch</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DASHBOARD ============ -->
+      <section class="page" id="page-dashboard">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-tachometer-alt"></i> Dashboard Tổng quan
+            </h1>
+            <p>Thống kê và theo dõi hoạt động của trường theo thời gian thực</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="kpi-grid">
+              <div class="kpi-card kpi-blue">
+                <div class="kpi-icon"><i class="fas fa-user-graduate"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-num" data-target="15247">0</div>
+                  <div class="kpi-label">Tổng sinh viên</div>
+                  <div class="kpi-trend up">
+                    <i class="fas fa-arrow-up"></i> +8.2% so với năm ngoái
+                  </div>
+                </div>
+              </div>
+              <div class="kpi-card kpi-teal">
+                <div class="kpi-icon">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="kpi-body">
+                  <div class="kpi-num" data-target="512">0</div>
+                  <div class="kpi-label">Giảng viên & Cán bộ</div>
+                  <div class="kpi-trend up">
+                    <i class="fas fa-arrow-up"></i> +5 người mới HK này
+                  </div>
+                </div>
+              </div>
+              <div class="kpi-card kpi-indigo">
+                <div class="kpi-icon"><i class="fas fa-book-open"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-num" data-target="248">0</div>
+                  <div class="kpi-label">Môn học đang mở</div>
+                  <div class="kpi-trend up">
+                    <i class="fas fa-arrow-up"></i> HK2 – 2024/2025
+                  </div>
+                </div>
+              </div>
+              <div class="kpi-card kpi-cyan">
+                <div class="kpi-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-num" data-target="94">0</div>
+                  <div class="kpi-label">% Có việc làm sau TN</div>
+                  <div class="kpi-trend up">
+                    <i class="fas fa-arrow-up"></i> Tăng 2% so K2020
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dash-row">
+              <div class="dash-card dash-wide">
+                <div class="dash-head">
+                  <h3><i class="fas fa-chart-bar"></i> Sinh viên theo khoa</h3>
+                </div>
+                <div id="chartBars"></div>
+              </div>
+              <div class="dash-card">
+                <div class="dash-head">
+                  <h3>
+                    <i class="fas fa-calendar-day"></i> Lịch sự kiện tuần này
+                  </h3>
+                </div>
+                <div id="eventList"></div>
+              </div>
+            </div>
+
+            <div class="dash-row three">
+              <div class="dash-card">
+                <div class="dash-head">
+                  <h3><i class="fas fa-clock"></i> Hoạt động gần đây</h3>
+                </div>
+                <div id="activityList"></div>
+              </div>
+              <div class="dash-card">
+                <div class="dash-head">
+                  <h3><i class="fas fa-star"></i> Sinh viên xuất sắc</h3>
+                </div>
+                <div id="topSVList"></div>
+              </div>
+              <div class="dash-card">
+                <div class="dash-head">
+                  <h3><i class="fas fa-tasks"></i> Hoàn thành môn học</h3>
+                </div>
+                <div id="progressList"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THỜI KHÓA BIỂU ============ -->
+      <section class="page" id="page-thoi-khoa-bieu">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-calendar-alt"></i> Thời khóa biểu
+            </h1>
+            <p>Tra cứu lịch học theo lớp, giảng viên hoặc phòng học</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="filter-bar">
+              <div class="filter-group">
+                <label>Học kỳ</label>
+                <select class="form-select" id="filterHocky">
+                  <option>HK1–2024/2025</option>
+                  <option selected>HK2–2024/2025</option>
+                  <option>HK1–2025/2026</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Lớp</label>
+                <select class="form-select" id="filterLop">
+                  <option>CNTT-K20A</option>
+                  <option>CNTT-K20B</option>
+                  <option>CĐT-K19A</option>
+                  <option>KT-K21A</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Tuần học</label>
+                <select class="form-select" id="filterTuan">
+                  <option>Tuần 1 (24/03–30/03)</option>
+                  <option>Tuần 2 (31/03–06/04)</option>
+                  <option>Tuần 3 (07/04–13/04)</option>
+                  <option selected>Tuần 4 (14/04–20/04)</option>
+                  <option>Tuần 5 (21/04–27/04)</option>
+                </select>
+              </div>
+              <button class="btn-primary" onclick="renderTKB()">
+                <i class="fas fa-search"></i> Tra cứu
+              </button>
+              <button class="btn-outline" onclick="printTKB()">
+                <i class="fas fa-print"></i> In TKB
+              </button>
+            </div>
+
+            <div class="tkb-mini-stats" id="tkbMiniStats"></div>
+
+            <div class="tkb-wrapper">
+              <table class="tkb-table" id="tkbTable">
+                <thead>
+                  <tr>
+                    <th class="tkb-th-tiet">Tiết</th>
+                    <th>Thứ 2<br /><small>14/04</small></th>
+                    <th>Thứ 3<br /><small>15/04</small></th>
+                    <th>Thứ 4<br /><small>16/04</small></th>
+                    <th>Thứ 5<br /><small>17/04</small></th>
+                    <th>Thứ 6<br /><small>18/04</small></th>
+                    <th>Thứ 7<br /><small>19/04</small></th>
+                  </tr>
+                </thead>
+                <tbody id="tkbBody"></tbody>
+              </table>
+            </div>
+            <div class="tkb-legend">
+              <span class="legend-item"
+                ><span class="dot dot-ly"></span> Lý thuyết</span
+              >
+              <span class="legend-item"
+                ><span class="dot dot-th"></span> Thực hành</span
+              >
+              <span class="legend-item"
+                ><span class="dot dot-off"></span> Trống</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ĐIỂM SỐ ============ -->
+      <section class="page" id="page-diem-so">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-chart-bar"></i> Bảng điểm
+            </h1>
+            <p>Xem điểm thi, điểm quá trình và kết quả học tập theo học kỳ</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="filter-bar">
+              <div class="filter-group" style="flex: 1">
+                <label>Mã sinh viên / Họ tên</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Nhập mã SV hoặc họ tên..."
+                  id="searchSV"
+                />
+              </div>
+              <div class="filter-group">
+                <label>Học kỳ</label>
+                <select class="form-select">
+                  <option>HK1–2024/2025</option>
+                  <option selected>HK2–2024/2025</option>
+                </select>
+              </div>
+              <button class="btn-primary" onclick="renderDiem()">
+                <i class="fas fa-search"></i> Xem điểm
+              </button>
+              <button class="btn-outline" onclick="exportData('diem')">
+                <i class="fas fa-file-excel"></i> Xuất Excel
+              </button>
+            </div>
+
+            <div class="sv-profile-card" id="svCard">
+              <div class="sv-av-wrap">
+                <div class="sv-av">NVA</div>
+                <div class="sv-online-dot"></div>
+              </div>
+              <div class="sv-info">
+                <h3>Nguyễn Văn An</h3>
+                <div class="sv-tags">
+                  <span><i class="fas fa-id-card"></i> VH2021001</span>
+                  <span><i class="fas fa-users"></i> CNTT-K20A</span>
+                  <span><i class="fas fa-building"></i> Khoa CNTT</span>
+                  <span><i class="fas fa-calendar"></i> Khóa 2021–2025</span>
+                </div>
+              </div>
+              <div class="sv-gpa-box">
+                <div class="gpa-circle">
+                  <svg viewBox="0 0 80 80">
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="30"
+                      fill="none"
+                      stroke="#dde3ea"
+                      stroke-width="6"
+                    />
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="30"
+                      fill="none"
+                      stroke="#1565c0"
+                      stroke-width="6"
+                      stroke-linecap="round"
+                      stroke-dasharray="188"
+                      stroke-dashoffset="47"
+                      transform="rotate(-90 40 40)"
+                    />
+                  </svg>
+                  <div class="gpa-text">
+                    <span class="gpa-num">3.42</span
+                    ><span class="gpa-lbl">GPA</span>
+                  </div>
+                </div>
+                <div class="gpa-rank">🏆 Xếp loại: Giỏi</div>
+              </div>
+            </div>
+
+            <div class="diem-tabs">
+              <button
+                class="diem-tab active"
+                onclick="switchDiemTab('bang', this)"
+              >
+                <i class="fas fa-table"></i> Bảng điểm
+              </button>
+              <button class="diem-tab" onclick="switchDiemTab('bieu-do', this)">
+                <i class="fas fa-chart-bar"></i> Biểu đồ
+              </button>
+              <button class="diem-tab" onclick="switchDiemTab('lich-su', this)">
+                <i class="fas fa-history"></i> Lịch sử các HK
+              </button>
+            </div>
+
+            <div id="diemTabBang">
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Mã môn</th>
+                      <th>Tên môn học</th>
+                      <th>TC</th>
+                      <th>CC</th>
+                      <th>GK</th>
+                      <th>CK</th>
+                      <th>Tổng</th>
+                      <th>Chữ</th>
+                      <th>Kết quả</th>
+                    </tr>
+                  </thead>
+                  <tbody id="diemBody"></tbody>
+                </table>
+              </div>
+              <div class="diem-summary-card" id="diemSummary"></div>
+            </div>
+            <div id="diemTabBieuDo" style="display: none">
+              <div id="bieuDoWrap" class="bieu-do-wrap"></div>
+            </div>
+            <div id="diemTabLichSu" style="display: none">
+              <div id="lichSuHK" class="lich-su-hk"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SINH VIÊN ============ -->
+      <section class="page" id="page-sinh-vien">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-user-graduate"></i> Quản lý Sinh viên
+            </h1>
+            <p>Danh sách, thông tin và quản lý hồ sơ sinh viên toàn trường</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="sv-stats-bar">
+              <div class="sv-stat-item">
+                <span class="dot-status green"></span> Đang học:
+                <strong id="svDangHoc">0</strong>
+              </div>
+              <div class="sv-stat-item">
+                <span class="dot-status yellow"></span> Bảo lưu:
+                <strong id="svBaoLuu">0</strong>
+              </div>
+              <div class="sv-stat-item">
+                <span class="dot-status red"></span> Thôi học:
+                <strong id="svThoiHoc">0</strong>
+              </div>
+              <div class="sv-stat-item">
+                <i class="fas fa-users"></i> Tổng:
+                <strong id="svTong">0</strong>
+              </div>
+            </div>
+            <div class="toolbar">
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  placeholder="Tìm theo tên, mã SV, email..."
+                  id="searchSinhVien"
+                  oninput="filterSinhVien()"
+                />
+              </div>
+              <div class="toolbar-actions">
+                <select
+                  class="form-select"
+                  id="filterKhoa"
+                  onchange="filterSinhVien()"
+                >
+                  <option value="">-- Tất cả khoa --</option>
+                  <option>CNTT</option>
+                  <option>Cơ điện</option>
+                  <option>Điện tử</option>
+                  <option>Kinh tế</option>
+                </select>
+                <select
+                  class="form-select"
+                  id="filterTrangThai"
+                  onchange="filterSinhVien()"
+                >
+                  <option value="">-- Trạng thái --</option>
+                  <option>Đang học</option>
+                  <option>Bảo lưu</option>
+                  <option>Thôi học</option>
+                </select>
+                <button class="btn-primary" onclick="openModalThemSV()">
+                  <i class="fas fa-user-plus"></i> Thêm SV
+                </button>
+                <button class="btn-outline" onclick="exportData('sv')">
+                  <i class="fas fa-file-excel"></i> Xuất Excel
+                </button>
+              </div>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        id="checkAll"
+                        onchange="toggleCheckAll()"
+                      />
+                    </th>
+                    <th>Mã SV</th>
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Lớp</th>
+                    <th>Khoa</th>
+                    <th>Email</th>
+                    <th>GPA</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="sinhVienBody"></tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span id="svCountText" class="count-text"></span>
+              <div class="pagination" id="svPagination"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-overlay" id="modalThemSV">
+          <div class="modal modal-lg">
+            <button class="modal-close" onclick="closeModal('modalThemSV')">
+              <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title">
+              <i class="fas fa-user-plus"></i> Thêm sinh viên mới
+            </h2>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Họ và tên *</label
+                ><input
+                  type="text"
+                  class="form-input"
+                  id="svHoTen"
+                  placeholder="Nguyễn Văn A"
+                />
+              </div>
+              <div class="form-group">
+                <label>Ngày sinh *</label
+                ><input type="date" class="form-input" id="svNgaySinh" />
+              </div>
+              <div class="form-group">
+                <label>Giới tính</label
+                ><select class="form-select" id="svGioiTinh">
+                  <option>Nam</option>
+                  <option>Nữ</option>
+                  <option>Khác</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>CCCD/CMND</label
+                ><input
+                  type="text"
+                  class="form-input"
+                  id="svCCCD"
+                  placeholder="012345678901"
+                />
+              </div>
+              <div class="form-group">
+                <label>Lớp *</label
+                ><select class="form-select" id="svLop">
+                  <option>CNTT-K21A</option>
+                  <option>CNTT-K21B</option>
+                  <option>CĐT-K21A</option>
+                  <option>KT-K21A</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Khoa *</label
+                ><select class="form-select" id="svKhoa">
+                  <option>CNTT</option>
+                  <option>Cơ điện</option>
+                  <option>Điện tử</option>
+                  <option>Kinh tế</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Email</label
+                ><input
+                  type="email"
+                  class="form-input"
+                  id="svEmail"
+                  placeholder="email@viethung.edu.vn"
+                />
+              </div>
+              <div class="form-group">
+                <label>Số điện thoại</label
+                ><input type="text" class="form-input" id="svSDT" />
+              </div>
+              <div class="form-group full-col">
+                <label>Địa chỉ</label
+                ><input
+                  type="text"
+                  class="form-input"
+                  id="svDiaChi"
+                  placeholder="Số nhà, đường, quận/huyện, tỉnh/thành"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn-outline" onclick="closeModal('modalThemSV')">
+                Hủy
+              </button>
+              <button class="btn-primary" onclick="themSinhVien()">
+                <i class="fas fa-save"></i> Lưu sinh viên
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-giang-vien">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-chalkboard-teacher"></i> Quản lý Giảng viên
+            </h1>
+            <p>Danh sách giảng viên, phân công giảng dạy và hồ sơ chuyên môn</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="toolbar">
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm giảng viên..."
+                  id="searchGV"
+                  oninput="filterGV()"
+                />
+              </div>
+              <div class="toolbar-actions">
+                <select
+                  class="form-select"
+                  id="filterBoMon"
+                  onchange="filterGV()"
+                >
+                  <option value="">-- Tất cả bộ môn --</option>
+                  <option>Khoa học máy tính</option>
+                  <option>Kỹ thuật điện</option>
+                  <option>Toán – Lý</option>
+                  <option>Kinh tế</option>
+                </select>
+                <select
+                  class="form-select"
+                  id="filterHocViGV"
+                  onchange="filterGV()"
+                >
+                  <option value="">-- Học vị --</option>
+                  <option>GS.TS</option>
+                  <option>PGS.TS</option>
+                  <option>TS</option>
+                  <option>ThS</option>
+                </select>
+                <div class="view-toggle">
+                  <button
+                    class="view-btn active"
+                    id="btnGridV"
+                    onclick="switchGVView('grid', this)"
+                  >
+                    <i class="fas fa-th-large"></i>
+                  </button>
+                  <button
+                    class="view-btn"
+                    id="btnListV"
+                    onclick="switchGVView('list', this)"
+                  >
+                    <i class="fas fa-list"></i>
+                  </button>
+                </div>
+                <button class="btn-primary" onclick="openModalThemGV()">
+                  <i class="fas fa-plus"></i> Thêm GV
+                </button>
+              </div>
+            </div>
+            <div class="gv-grid" id="gvGrid"></div>
+            <div class="table-wrapper" id="gvTable" style="display: none">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Mã GV</th>
+                    <th>Họ tên</th>
+                    <th>Học vị</th>
+                    <th>Bộ môn</th>
+                    <th>Chuyên ngành</th>
+                    <th>Email</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="gvTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-overlay" id="modalThemGV">
+          <div class="modal modal-lg">
+            <button class="modal-close" onclick="closeModal('modalThemGV')">
+              <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title">
+              <i class="fas fa-user-plus"></i> Thêm giảng viên mới
+            </h2>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Họ và tên *</label
+                ><input type="text" class="form-input" id="gvHoTen" />
+              </div>
+              <div class="form-group">
+                <label>Học vị</label
+                ><select class="form-select" id="gvHocVi">
+                  <option>ThS</option>
+                  <option>TS</option>
+                  <option>PGS.TS</option>
+                  <option>GS.TS</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Bộ môn</label
+                ><select class="form-select" id="gvBoMon">
+                  <option>Khoa học máy tính</option>
+                  <option>Kỹ thuật điện</option>
+                  <option>Toán – Lý</option>
+                  <option>Kinh tế</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Chuyên ngành</label
+                ><input type="text" class="form-input" id="gvChuyenNganh" />
+              </div>
+              <div class="form-group">
+                <label>Email</label
+                ><input type="email" class="form-input" id="gvEmail" />
+              </div>
+              <div class="form-group">
+                <label>Điện thoại</label
+                ><input type="text" class="form-input" id="gvSDT" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn-outline" onclick="closeModal('modalThemGV')">
+                Hủy
+              </button>
+              <button class="btn-primary" onclick="themGiangVien()">
+                <i class="fas fa-save"></i> Lưu
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-hoc-phi">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-wallet"></i> Quản lý Học phí
+            </h1>
+            <p>
+              Theo dõi tình trạng đóng học phí, công nợ và lịch sử thanh toán
+            </p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="hp-kpi">
+              <div class="hp-kpi-card blue">
+                <i class="fas fa-money-bill-wave"></i>
+                <div>
+                  <div class="hp-kpi-num">2.45 tỷ</div>
+                  <div>Tổng thu HK2</div>
+                </div>
+              </div>
+              <div class="hp-kpi-card green">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                  <div class="hp-kpi-num">1.89 tỷ</div>
+                  <div>Đã thanh toán</div>
+                </div>
+              </div>
+              <div class="hp-kpi-card red">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                  <div class="hp-kpi-num">560 triệu</div>
+                  <div>Còn nợ</div>
+                </div>
+              </div>
+              <div class="hp-kpi-card yellow">
+                <i class="fas fa-user-clock"></i>
+                <div>
+                  <div class="hp-kpi-num">1.243</div>
+                  <div>SV chưa đóng</div>
+                </div>
+              </div>
+            </div>
+            <div class="toolbar" style="margin-top: 24px">
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  placeholder="Tìm mã SV hoặc họ tên..."
+                  id="searchHP"
+                  oninput="filterHP()"
+                />
+              </div>
+              <div class="toolbar-actions">
+                <select
+                  class="form-select"
+                  id="filterHPTT"
+                  onchange="filterHP()"
+                >
+                  <option value="">-- Trạng thái --</option>
+                  <option>Đã đóng</option>
+                  <option>Chưa đóng</option>
+                  <option>Đóng một phần</option>
+                </select>
+                <button
+                  class="btn-primary"
+                  onclick="showToast('Đang tạo phiếu thu...', 'ok')"
+                >
+                  <i class="fas fa-plus"></i> Tạo phiếu thu
+                </button>
+                <button class="btn-outline" onclick="exportData('hp')">
+                  <i class="fas fa-file-excel"></i> Xuất
+                </button>
+              </div>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Mã SV</th>
+                    <th>Họ tên</th>
+                    <th>Lớp</th>
+                    <th>HK</th>
+                    <th>Phải nộp</th>
+                    <th>Đã nộp</th>
+                    <th>Còn lại</th>
+                    <th>Hạn nộp</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="hocPhiBody"></tbody>
+              </table>
+            </div>
+            <div class="pagination" id="hpPagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-thu-vien">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-book"></i> Thư viện Điện tử
+            </h1>
+            <p>
+              Tra cứu sách, tài liệu học tập và đăng ký mượn sách trực tuyến
+            </p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="tv-search-bar">
+              <div class="tv-search-input">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm sách, tài liệu, tác giả..."
+                  id="searchTV"
+                  oninput="filterTV()"
+                />
+              </div>
+              <select
+                class="form-select"
+                id="filterTVLoai"
+                onchange="filterTV()"
+                style="min-width: 180px"
+              >
+                <option value="">-- Tất cả thể loại --</option>
+                <option>Công nghệ thông tin</option>
+                <option>Kỹ thuật</option>
+                <option>Kinh tế</option>
+                <option>Ngoại ngữ</option>
+                <option>Giáo trình</option>
+              </select>
+            </div>
+            <div class="tv-stats">
+              <div class="tv-stat-item">
+                <i class="fas fa-book"></i> <strong>12.500+</strong> Đầu sách
+              </div>
+              <div class="tv-stat-item">
+                <i class="fas fa-file-pdf"></i> <strong>5.000+</strong> Tài liệu
+                PDF
+              </div>
+              <div class="tv-stat-item">
+                <i class="fas fa-user-check"></i> <strong>3.200</strong> Thẻ TV
+              </div>
+              <div class="tv-stat-item">
+                <i class="fas fa-clock"></i> Mở: <strong>7:00 – 21:00</strong>
+              </div>
+            </div>
+            <div class="book-grid" id="bookGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-thong-bao">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-bell"></i> Thông báo
+            </h1>
+            <p>Các thông báo mới nhất từ Nhà trường, Khoa và Phòng ban</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="tb-toolbar">
+              <div class="tb-tabs" id="tbTabs">
+                <button class="tb-tab active" onclick="filterTB('all', this)">
+                  Tất cả
+                </button>
+                <button class="tb-tab" onclick="filterTB('hoc-vu', this)">
+                  <i class="fas fa-graduation-cap"></i> Học vụ
+                </button>
+                <button class="tb-tab" onclick="filterTB('tuyen-sinh', this)">
+                  <i class="fas fa-user-plus"></i> Tuyển sinh
+                </button>
+                <button class="tb-tab" onclick="filterTB('su-kien', this)">
+                  <i class="fas fa-rocket"></i> Sự kiện
+                </button>
+                <button class="tb-tab" onclick="filterTB('quan-ly', this)">
+                  <i class="fas fa-file-alt"></i> Quản lý
+                </button>
+              </div>
+              <button class="btn-outline btn-sm" onclick="markAllRead()">
+                <i class="fas fa-check-double"></i> Đánh dấu đã đọc
+              </button>
+            </div>
+            <div class="tb-list" id="tbList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-tuyen-sinh">
+        <div class="page-banner">
+          <div class="container">
+            <h1 class="page-banner-title">
+              <i class="fas fa-edit"></i> Tuyển sinh 2025
+            </h1>
+            <p>Thông tin tuyển sinh và đăng ký xét tuyển trực tuyến</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="countdown-bar">
+              <span
+                ><i class="fas fa-hourglass-half"></i> Còn lại đến hết hạn nộp
+                hồ sơ (31/07/2025):</span
+              >
+              <div class="cd-nums">
+                <div class="cd-unit">
+                  <span id="cdDays">0</span><span>Ngày</span>
+                </div>
+                <div class="cd-sep">:</div>
+                <div class="cd-unit">
+                  <span id="cdHours">0</span><span>Giờ</span>
+                </div>
+                <div class="cd-sep">:</div>
+                <div class="cd-unit">
+                  <span id="cdMins">0</span><span>Phút</span>
+                </div>
+                <div class="cd-sep">:</div>
+                <div class="cd-unit">
+                  <span id="cdSecs">0</span><span>Giây</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ts-layout">
+              <div class="ts-info">
+                <h2>Phương thức xét tuyển 2025</h2>
+                <div class="ts-method">
+                  <div class="ts-num">01</div>
+                  <div>
+                    <strong>Xét điểm thi THPTQG</strong>
+                    <p>
+                      Tổ hợp A00, A01, D01, C01 – Điểm chuẩn từ 16–22 điểm tùy
+                      ngành
+                    </p>
+                  </div>
+                </div>
+                <div class="ts-method">
+                  <div class="ts-num">02</div>
+                  <div>
+                    <strong>Xét học bạ THPT</strong>
+                    <p>TB 3 năm hoặc 5 học kỳ tối thiểu 6.0/môn</p>
+                  </div>
+                </div>
+                <div class="ts-method">
+                  <div class="ts-num">03</div>
+                  <div>
+                    <strong>Kỳ thi Đánh giá năng lực</strong>
+                    <p>Điểm ĐGNL của ĐHQGHN hoặc ĐHQG TP.HCM</p>
+                  </div>
+                </div>
+                <div class="ts-method">
+                  <div class="ts-num">04</div>
+                  <div>
+                    <strong>Xét tuyển thẳng</strong>
+                    <p>Dành cho HS giỏi quốc gia, giải Olympic quốc tế</p>
+                  </div>
+                </div>
+
+                <h2 style="margin-top: 2rem">Chỉ tiêu tuyển sinh 2025</h2>
+                <div class="table-wrapper">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Ngành</th>
+                        <th>Mã ngành</th>
+                        <th>Chỉ tiêu</th>
+                        <th>Điểm chuẩn 2024</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Công nghệ thông tin</td>
+                        <td>7480201</td>
+                        <td>300</td>
+                        <td>
+                          <strong style="color: var(--xanh)">22.5</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Kỹ thuật điện tử</td>
+                        <td>7520203</td>
+                        <td>200</td>
+                        <td><strong>19.0</strong></td>
+                      </tr>
+                      <tr>
+                        <td>Cơ điện tử</td>
+                        <td>7520114</td>
+                        <td>150</td>
+                        <td><strong>18.5</strong></td>
+                      </tr>
+                      <tr>
+                        <td>Kỹ thuật hóa học</td>
+                        <td>7520301</td>
+                        <td>120</td>
+                        <td><strong>17.0</strong></td>
+                      </tr>
+                      <tr>
+                        <td>Quản trị kinh doanh</td>
+                        <td>7340101</td>
+                        <td>250</td>
+                        <td><strong>20.0</strong></td>
+                      </tr>
+                      <tr>
+                        <td>Kỹ thuật xây dựng</td>
+                        <td>7580201</td>
+                        <td>180</td>
+                        <td><strong>18.0</strong></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h2 style="margin-top: 2rem">
+                  <i class="fas fa-medal" style="color: #f39c12"></i> Chính sách
+                  học bổng
+                </h2>
+                <div class="hb-grid">
+                  <div class="hb-card">
+                    <div class="hb-icon gold">
+                      <i class="fas fa-trophy"></i>
+                    </div>
+                    <div>
+                      <strong>Học bổng Toàn phần</strong>
+                      <p>100% học phí – Điểm đầu vào ≥ 27 điểm</p>
+                    </div>
+                  </div>
+                  <div class="hb-card">
+                    <div class="hb-icon silver">
+                      <i class="fas fa-medal"></i>
+                    </div>
+                    <div>
+                      <strong>Học bổng 50%</strong>
+                      <p>50% học phí – Điểm đầu vào ≥ 24 điểm</p>
+                    </div>
+                  </div>
+                  <div class="hb-card">
+                    <div class="hb-icon bronze">
+                      <i class="fas fa-award"></i>
+                    </div>
+                    <div>
+                      <strong>Học bổng Khuyến học</strong>
+                      <p>2 triệu/kỳ – GPA ≥ 3.6 trong quá trình học</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ts-form-col">
+                <div class="ts-form">
+                  <div class="ts-form-head">
+                    <h3><i class="fas fa-edit"></i> Đăng ký tư vấn</h3>
+                    <p>Chúng tôi sẽ liên hệ trong 24h</p>
+                  </div>
+                  <div class="form-group">
+                    <label>Họ và tên *</label
+                    ><input
+                      type="text"
+                      class="form-input"
+                      placeholder="Nguyễn Văn A"
+                      id="tsHoTen"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Số điện thoại *</label
+                    ><input
+                      type="text"
+                      class="form-input"
+                      placeholder="0900 000 000"
+                      id="tsSDT"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label
+                    ><input
+                      type="email"
+                      class="form-input"
+                      placeholder="email@example.com"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Tỉnh/Thành phố</label>
+                    <select class="form-select">
+                      <option>Hà Nội</option>
+                      <option>TP.HCM</option>
+                      <option>Đà Nẵng</option>
+                      <option>Tỉnh khác</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Ngành quan tâm</label>
+                    <select class="form-select">
+                      <option>Công nghệ thông tin</option>
+                      <option>Kỹ thuật điện tử</option>
+                      <option>Cơ điện tử</option>
+                      <option>Quản trị kinh doanh</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Nội dung cần tư vấn</label>
+                    <textarea
+                      class="form-input"
+                      rows="3"
+                      placeholder="Câu hỏi của bạn..."
+                    ></textarea>
+                  </div>
+                  <button class="btn-primary full" onclick="dangKyTV()">
+                    <i class="fas fa-paper-plane"></i> Gửi đăng ký
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-col brand">
+              <div class="logo" style="margin-bottom: 14px">
+                <div class="logo-icon white">VH</div>
+                <div class="logo-text">
+                  <span class="logo-name" style="color: #a8c8ff"
+                    >ĐH CÔNG NGHIỆP</span
+                  >
+                  <span class="logo-sub" style="color: #fff">VIỆT - HUNG</span>
+                </div>
+              </div>
+              <p class="footer-desc">
+                Trường Đại học Công nghiệp Việt-Hung – đào tạo nguồn nhân lực kỹ
+                thuật chất lượng cao, hội nhập quốc tế.
+              </p>
+              <div class="footer-social">
+                <a class="social-icon fb" href="#"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a class="social-icon yt" href="#"
+                  ><i class="fab fa-youtube"></i
+                ></a>
+                <a class="social-icon li" href="#"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a class="social-icon tt" href="#"
+                  ><i class="fab fa-tiktok"></i
+                ></a>
+              </div>
+            </div>
+            <div class="footer-col">
+              <h4>Liên hệ</h4>
+              <p><i class="fas fa-map-marker-alt"></i> Tùng thiện, Hà Nội</p>
+              <p><i class="fas fa-phone"></i> (024) 3836 8821</p>
+              <p><i class="fas fa-envelope"></i> info@viethung.edu.vn</p>
+              <p><i class="fas fa-globe"></i> www.viethung.edu.vn</p>
+              <p><i class="fas fa-clock"></i> T2–T6: 7:30 – 17:00</p>
+            </div>
+            <div class="footer-col">
+              <h4>Đường dẫn nhanh</h4>
+              <a href="#"
+                ><i class="fas fa-angle-right"></i> Giới thiệu trường</a
+              >
+              <a href="#"><i class="fas fa-angle-right"></i> Đào tạo đại học</a>
+              <a href="#"
+                ><i class="fas fa-angle-right"></i> Đào tạo sau đại học</a
+              >
+              <a href="#"
+                ><i class="fas fa-angle-right"></i> Nghiên cứu khoa học</a
+              >
+              <a href="#"><i class="fas fa-angle-right"></i> Hợp tác quốc tế</a>
+              <a href="#"><i class="fas fa-angle-right"></i> Ký túc xá</a>
+            </div>
+            <div class="footer-col">
+              <h4>Dịch vụ sinh viên</h4>
+              <a
+                href="#"
+                onclick="
+                  showPage('thoi-khoa-bieu');
+                  return false;
+                "
+                ><i class="fas fa-angle-right"></i> Thời khóa biểu</a
+              >
+              <a
+                href="#"
+                onclick="
+                  showPage('diem-so');
+                  return false;
+                "
+                ><i class="fas fa-angle-right"></i> Xem điểm thi</a
+              >
+              <a
+                href="#"
+                onclick="
+                  showPage('hoc-phi');
+                  return false;
+                "
+                ><i class="fas fa-angle-right"></i> Học phí</a
+              >
+              <a
+                href="#"
+                onclick="
+                  showPage('thu-vien');
+                  return false;
+                "
+                ><i class="fas fa-angle-right"></i> Thư viện điện tử</a
+              >
+              <a
+                href="#"
+                onclick="
+                  showPage('thong-bao');
+                  return false;
+                "
+                ><i class="fas fa-angle-right"></i> Thông báo</a
+              >
+              <a href="#"><i class="fas fa-angle-right"></i> Học bổng</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p>© 2025 Trường Đại học Công nghiệp Việt-Hung. Bảo lưu mọi quyền.</p>
+          <p>
+            Thiết kế bởi Phòng Công nghệ thông tin – ĐH Công nghiệp Việt-Hung
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="duan3.js"></script>
+  </body>
+</html>
